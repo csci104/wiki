@@ -9,7 +9,7 @@ There are essentially two methods of debugging you'll use in this class: GDB and
 If you're anything like me, the first time you run your program, it's probably going to segfault. If and when it does that, you're gonna have to backtrace it with GDB anyway. From there, you may as well test your variable values from that line instead of placing the couts, recompiling, and rerunning. Obviously this doesn't replace couts entirely, but it's a tool you need to be comfortable using.
 
 ## GDB COMMANDS
-Most commands have 2 ways of running them. These will be shown by the slash. Ie run/r means you can use either run or r. It doesn't make a difference.
+Most commands have 2 ways of running them. These will be shown by the slash. I.e. run/r means you can use either run or r.
 
 
 | `command` | description |
@@ -30,3 +30,7 @@ Most commands have 2 ways of running them. These will be shown by the slash. Ie 
 | `l/list` | Prints the area around the current line in the current source file |
 | `where` | Display the current line and the function stack of calls that got you there |
 | `quit` | Exits GDB. |
+
+## Examples
+
+I'll add this tomorrow. I'm tired. 
