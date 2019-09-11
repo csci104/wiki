@@ -1,17 +1,17 @@
-#***GDB CHEAT SHEET***
+# GDB CHEAT SHEET
 By Spencer Davis
 
 GDB is a debugging program that will save your life in this class and beyond.
 This file aims to make it more accessible for beginner's use.
 
-##***WHY USE GDB?***
+## WHY USE GDB?
 There are essentially two methods of debugging you'll use in this class: GDB and couts.
 If you're anything like me, the first time you run your program, it's probably going to segfault. If and when it does that, you're gonna have to backtrace it with GDB anyway. From there, you may as well test your variable values from that line instead of placing the couts, recompiling, and rerunning. Obviously this doesn't replace couts entirely, but it's a tool you need to be comfortable using.
 
-##***GDB COMMANDS***
+## GDB COMMANDS
 Most commands have 2 ways of running them. These will be shown by the slash. Ie run/r means you can use either run or r. It doesn't make a difference.
 | **run/r [arguments]** | runs the program with the given arguments. |
-| :---                  | :---                                       |
+| :---                  |:---                                        |
 | **break/b [file.cpp:line number]** | puts a breakpoint at the given line number in the given file. Note that if you only have one file (ie, for the rani), just break [line number] will suffice. |
 | **break/b [function name]** | Places a breakpoint at the start of the given function. |
 | **clear [file.cpp:line number]** | clears a breakpoint at the given line number in the given file. Note that if you only have one file (ie, for the rani), just clear [line number] will suffice. |
