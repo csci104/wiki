@@ -10,6 +10,8 @@ If you're anything like me, the first time you run your program, it's probably g
 
 ## GDB COMMANDS
 Most commands have 2 ways of running them. These will be shown by the slash. Ie run/r means you can use either run or r. It doesn't make a difference.
+
+
 | `run/r [arguments]` | runs the program with the given arguments. |
 | :---:                  |:---                                |
 | `break/b [file.cpp:line number]` | puts a breakpoint at the given line number in the given file. Note that if you only have one file (ie, for the rani), just break [line number] will suffice. |
