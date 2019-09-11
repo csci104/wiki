@@ -12,8 +12,9 @@ If you're anything like me, the first time you run your program, it's probably g
 Most commands have 2 ways of running them. These will be shown by the slash. Ie run/r means you can use either run or r. It doesn't make a difference.
 
 
+| `command` | description |
+| :---:                               |:---                               |
 | `run/r [arguments]` | runs the program with the given arguments. |
-| :---:                  |:---                                |
 | `break/b [file.cpp:line number]` | puts a breakpoint at the given line number in the given file. Note that if you only have one file (ie, for the rani), just break [line number] will suffice. |
 | `break/b [function name]` | Places a breakpoint at the start of the given function. |
 | `clear [file.cpp:line number]` | clears a breakpoint at the given line number in the given file. Note that if you only have one file (ie, for the rani), just clear [line number] will suffice. |
