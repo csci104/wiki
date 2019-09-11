@@ -24,11 +24,8 @@ Most commands have 2 ways of running them. These will be shown by the slash. Ie 
 | `continue/c` | continues the program after being stopped by a breakpoint |
 | `print/p [variable]` | prints out the variable value. If you pass it a class/struct instance, it will print all the data members in the class. |
 | `display/d [variable]` | like print, but reprints the information after every instruction |
-| `next/n` | Executes the current source line and moves it to the next one. Will skip over any function calls. |
-	| If you were to have the line 'x = getValue(y)' and used n, you would go to the next line in the current function call, ignoring what happens in getValue(). 
-	|Useful for when you're testing out a function and you KNOW your helper functions work
-| `step/s` | Executes the current source line and moves it to the next one. Will step INTO any function calls. |
-	| If you were to have the line 'x = getValue(y)' and used s, you would go into the getValue() function. |
+| `next/n` | Executes the current source line and moves it to the next one. Will skip over any function calls. If you were to have the line 'x = getValue(y)' and used n, you would go to the next line in the current function call, ignoring what happens in getValue(). Useful for when you're testing out a function and you KNOW your helper functions work.
+| `step/s` | Executes the current source line and moves it to the next one. Will step INTO any function calls. If you were to have the line 'x = getValue(y)' and used s, you would go into the getValue() function.|
 | `finish/f` | Executes the rest of the current function. Will step OUT of the current function. |
 | `l/list` | Prints the area around the current line in the current source file |
 | `where` | Display the current line and the function stack of calls that got you there |
