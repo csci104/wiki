@@ -33,4 +33,29 @@ Most commands have 2 ways of running them. These will be shown by the slash. I.e
 
 ## Examples
 
-I'll add this tomorrow. I'm tired. 
+I'll add this tomorrow. I'm tired.
+
+[//]: <> (I'm adding this cause I still have gdb in my terminal)
+
+```
+# start GDB using an executable you compiled
+#   use the run shorthand r to run the program with commandline arguments
+#   use the backtrace shorthand bt to see where the segfault occured
+#   use the breakpoint shorthand b to set a breakpoint at line 132
+#   use the run command again to run the program again
+
+$ gdb the_rani
+(gdb) r input.txt output.txt
+
+Program received signal SIGSEGV, Segmentation fault.
+(gdb) bt
+#0  0x000 in TheRani::some_function (this=xxxx, x=2, n=0, subject_history=xxxxx,
+    temp_history=xxx, query_count=2) at the_rani.cpp:194
+#1  0x000 in TheRani::execute (this=xxxx, line=...) at the_rani.cpp:132
+#2  0x000 in TheRani::main (this=xxxxx) at the_rani.cpp:60
+#3  0x000 in main (argc=3, argv=xxxxxx) at the_rani.cpp:281
+(gdb) b 132
+(gdb) r input.txt output.txt
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+```
