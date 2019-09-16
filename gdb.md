@@ -59,3 +59,61 @@ Program received signal SIGSEGV, Segmentation fault.
 The program being debugged has been started already.
 Start it from the beginning? (y or n) y
 ```
+
+```
+# a bit more of an advanced example
+# this is #5 from Lab 2
+# break right before the first control flow statement
+# continue until you get to the bugged output (i.e. the fourth line of output)
+# step through the code, making sure everything is working logically
+# print out any variables that are relevant to the current line
+# on line 115, despite protector->power being greater than invader->power, protectorLost is true
+# this shows what the error was, a mistake in < > signs in control flow
+
+$ gdb game_student2
+(gdb) break 110
+Breakpoint 1 at 0x401683: file game_of_pointers_student2.cpp, line 110.
+(gdb) r input3.txt output3-stu2.txt
+Starting program: /home/cs104/labs/lab2/game_student2 input3.txt output3-stu2.txt
+
+Breakpoint 1, Skirmish (protectors=0x61a0a0, invaders=0x61a220, n=2, m=3, 
+    skirmishLine=1, numReserves=@0x7fffffffd970: 1, outputFile=...)
+    at game_of_pointers_student2.cpp:110
+110	    bool protectorLost = false;
+(gdb) c
+Continuing.
+
+Breakpoint 1, Skirmish (protectors=0x61a0a0, invaders=0x61a220, n=2, m=3, 
+    skirmishLine=1, numReserves=@0x7fffffffd970: 1, outputFile=...)
+    at game_of_pointers_student2.cpp:110
+110	    bool protectorLost = false;
+(gdb) c
+Continuing.
+
+Breakpoint 1, Skirmish (protectors=0x61a0a0, invaders=0x61a220, n=2, m=3, 
+    skirmishLine=1, numReserves=@0x7fffffffd970: 0, outputFile=...)
+    at game_of_pointers_student2.cpp:110
+110	    bool protectorLost = false;
+(gdb) c
+Continuing.
+
+Breakpoint 1, Skirmish (protectors=0x61a0a0, invaders=0x61a220, n=2, m=3, 
+    skirmishLine=1, numReserves=@0x7fffffffd970: 0, outputFile=...)
+    at game_of_pointers_student2.cpp:110
+110	    bool protectorLost = false;
+(gdb) n
+111	    if (invader->weapon == protector->weapon)
+(gdb) print invader->weapon
+$3 = "axe"
+(gdb) print protector->weapon
+$4 = "axe"
+(gdb) n
+113	      if (invader->power < protector->power)
+(gdb) print invader->power
+$5 = 30
+(gdb) print protector->power
+$6 = 100
+(gdb) n
+115	        protectorLost = true;
+(gdb) c
+```
