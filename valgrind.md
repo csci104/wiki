@@ -69,14 +69,14 @@ to the commented line where the lost memory was allocated.
 This error is caused if you forget to initialize variables before using or
 accessing them.
 
-Here's an error example:
+Error example:
 
 ```txt
 Conditional jump or move depends on uninitialised value(s)
    at 0x1091D1: main (valgrind-test.cpp:9)
 ```
 
-Here are a few examples that all would have caused this problem:
+All the examples below would have caused this error:
 
 ```cpp
 int j;
@@ -94,6 +94,7 @@ int i;
 while(i < 104) // error
   printf("I'm still working on fixing Valgrind errors!\n");
 ```
+
 
 `Invalid read/write of size X`
 
