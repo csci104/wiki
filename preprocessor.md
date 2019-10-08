@@ -1,126 +1,138 @@
-﻿# Preprocessor Cheat Sheet
-By: Anthony Wiencko
+# Preprocessor Cheat Sheet
 
-The lines that start with **#** in your code are preprocessor directives. They run as the first step in the compilation process before your code is actually compiled. Common directives are:
+By Anthony Wiencko
 
- - [`#include`](#include) - [`#include <file>`](#include-file) or [`#include "file"`](#include-file-1)
- - [`#define`](#define)
- - [`#ifndef`](#ifndef-identifier)
- - [`#endif`](#endif)
+The lines that start with `#` in your code are preprocessor directives.
+They run as the first step in the compilation process before your code is actually compiled.
 
-Other links:
+## Include
 
- - [Custom Include Path](#custom-include-path)
- - [Common Include Errors](#common-include-errors)
- - [Header guards](#header-guards)
+Include takes the entire file specified in the brackets or apostrophes and literally inserts it into your code where the include was.
+Any preprocessor lines in the inserted code will also be run when the proprocessor gets to them.
+This means you have to be careful where you include files to avoid circular dependancy and multiple declarations which can both cause compile errors.
 
-# Include
-Include takes the entire file specified and literally inserts it into your code where the include was. Any preprocessor lines in the inserted code will also be run when the proprocessor gets to them. This means you have to be careful where you include files to avoid circular dependancy and multiple declarations which can both cause compile errors.
+### #include \<_file_>
 
+With angled brackets, the preprocessor searches for the file in the C++ standard library `PATH`, as defined by your installation of C++.
+For example, on macOS, your standard C++ library `PATH` might be
 
-### #include \<file>
+```
+/Library/Developer/CommandLineTools/usr/include/c++/v1
+```
 
-With angled brackets, the preprocessor searches for the file in the C++ standard library PATH, as defined by your installation of C++. For example, on Mac, your standard C++ library path might be
+So if the path of file you'd like to include from a directory on your C++ `PATH` is `string`, the first place it would look is the directory above, and it might find:
 
-    /Library/Developer/CommandLineTools/usr/include/c++/v1
+```
+/Library/Developer/CommandLineTools/usr/include/c++/v1/string
+```
 
-So if the relative path of file is "String" , the absolute path would be 
+In general, this is the way you should `include` standard library headers, and while we mention the `PATH` several times, you most likely won't need to fiddle with it too much.
 
-    /Library/Developer/CommandLineTools/usr/include/c++/v1/String
+### #include "_file_"
 
-This is the way you should include C++ standard library files like \<string>, \<vector>, \<iostream>, ect.
+With quotation marks, the preprocessor first searches for the file in the same directory as the `.cpp` or `.h` file thats calling `#include`.
+For example, imaging you're working on project `hw1`:
 
-### #include "file"
+```
+/home
+  /cs104
+    /hw-student
+      /hw1
+        /file1.cpp
+        /file2.h
+```
 
-With quotation marks, the preprocessor first searches for the file in the same directory as the .cpp or .h file thats calling #include. For example, if you are working on file1.cpp with the path
+If you want to include `file2.h`, all you would do is add `#include "file2.h"`.
+If the file is inside quotations, it's first searched for from wherever the `#include` is, i.e. `hw1/`.
 
-`/home/cs104/hw-student/hw1/src/file1.cpp` 
+However, if `file2.h` had a different path and was not adjacent to `file1.cpp`, you might do something different:
 
-and you want to include file2.h with the path
+- `/home/cs104/hw-student/file2.h` would require `#include "../file2.h"`
+- `/home/cs104/hw-student/hw2/file2.h` would require `#include "../hw2/file2.h"`
+- `/home/cs104/hw-student/hw1/extra/file2.h` would require `#include "extra/file2.h"`
 
-   `/home/cs104/hw-student/hw1/src/file2.h`
+If the file you are trying to include does not exist in your local folder the preprocessor then treats your `#include "file"` line like a `#include <file>` line, searching the C++ library files.
+However, you should not use `#include "file"` for library files to make your code more understandable.
 
-you would `#include "file2.h"`.
+## Custom Include Path
 
-The `file` path is relative to the path of the file calling the `#include`. If file1.cpp stayed in
-
-`/home/cs104/hw-student/hw1/src/file1.cpp` 
-
-but file2.h had a different path, like this:
-
-`/home/cs104/hw-student/hw1/file2.h` you would `#include "../file2.h"`
-or 
-`/home/cs104/hw-student/hw1/other/file2.h` you would `#include "../other/file2.h"`
-or
-`/home/cs104/hw-student/hw1/src/src2/file2.h` you would `#include "src2/file2.h"`
-
-If the file you are trying to include does not exist in your local folder the preprocessor then treats your `#include "file"` line like a `#include <file>` line, searching the C++ library files. However, you should not use `#include "file"` for library files to make your code more understandable.
-
-## Custom Include PATH
-If you use the compile argument `-I/(include_path)` for g++, you can specify additional folders for both `#include "file2.h"` and `#include "file"` to search for `file`.
-
-include_path is the absolute path of the folder, meaning it starts from your computer's bottommost folder.
-
-For `#include "file"`, it only checks the additional folder after it checks the local directory as explained above.
+If you use the compile argument `-Iinclude_path` with `g++`, you can specify additional folders for both `#include "file"` and `#include <file>` to search for `file`
+Note that `include_path` must be the absolute path of the folder, meaning it starts from your computer's root directory, `/`.
+If you do use this, `#include "file"` will still only check the additional folder after it checks the local directory as explained above.
 
 ## Common Include Errors
 
-#### Inclusion The Same File Multiple Times
+While it might seem that a bug is coming from faulty code, in some cases it can be the result of incorrect or circular preprocessing.
+Here are a couple common cases of this.
 
-If you include a file multiple times in one file, it can cause compilation errors. For instance, if you declare a class in a file and include it twice, your code won't compile since you can't declare the same class several times.
+### Inclusion The Same File Multiple Times
 
-The same problem can occur if you include `file1.h` in `file2.h` and inlcude both `file1.h` and `file2.h` in another file like `file3.h`. In this case, `file1.h` will be included in `file3.h` twice potentially causing compile errors.
+If you include a file multiple times in one file, it can cause compilation errors.
+For instance, if you declare a class in a file and include it twice, your code won't compile since you can't declare the same class several times.
 
-#### Circular File Dependency
+The same problem can occur if you include `file1.h` in `file2.h` and inlcude both `file1.h` and `file2.h` in another file like `file3.h`.
+In this case, `file1.h` will be included in `file3.h` twice potentially causing compile errors.
+
+### Circular File Dependency
 
 If `file1.h` includes `file2.h` and `file2.h` includes `file1.h`, they will keep including each other until your compiler stops working. 
 
-#### How to Avoid These Issues
+### How to Avoid These Issues
 
-Only include files when you know you need them. In `.h` files, only include what you absolutely need for the code to work. In `file.cpp` files, only include library headers and necessary `.h` files.
+Only include files when you know you need them.
+In `.h` files, only include what you absolutely need for class and function definitions to work.
+Use corresponding `file.cpp` files to include everything else you might need.
+Additionally, avoid circular dependancy by aiming for a tree-like structure; if you find yourself needing circular dependencies, you might need to separate out parts of your definitions.
 
-Use `.h` files when possible. Always use [header guards](#header-guards) for `.h` files.
+## Definitions
 
-Avoid circular dependancy by keeping structure in mind when designing an inheritance heirarchy.
+The `#define` directive can be used as `#define identifier replacement` or just `#define identifier`.
 
+### #define _identifier_ _replacement_
 
+Replaces every instance of *identifier* with replacement for the rest of the file.
+For instance `#define MAX 100` will replace every instance of `MAX` with `100`. Remember, since `#include` literally copies a file over, if `#define MAX 100` is before an `#include` statement in the code, the preprocessor will replace every instance of `MAX` in the included file with `100`.
 
-# #Header Guards
+### #undef _identifier_
 
-## #Define
-The `#Define` directive can be used as `#Define *identifier* *replacement*` or just `#Define *identifier*`.
+Removes the current definition of `identifier` from the preprocessor.
+This also stops the `identifier` from being replaced by a `replacement` if one was defined.
 
-#### #Define *identifier replacement*
+### #define _identifier_
 
-Replaces every instance of *identifier* with replacement for the rest of the file. For instance `#Define MAX 100` will replace every instance of `MAX` with `100`. Remember, since `#Include` literally copies a file over, if `#Define MAX 100` is before an `#Include` statement in the code, the preprocessor will replace every instance of `MAX` in the included file with `100`.
+Declares the identifier for the scope of the preprocessor.
+This is a necessary component of header guards.
 
-#### #Undef *identifier*
-Removes the current definition of *identifier* from the preprocessor. This also stops the *identifier* from being replaced by a *replacement* if one was defined.
+### #ifndef _identifier_
 
-#### #Define *identifier*
+If the `identifier` is already defined, the code block below the directive will not be compiled. 
 
-Declares the identifier for the scope of the preprocessor. This is a necessary component of header guards.
+### #endif
 
-
-## #Ifndef *identifier*
-
-If the *identifier* is already defined, the code block below the directive will not be compiled. 
-
-## #Endif
-
-Ends the code block that starts with `#Ifndef identifier`. If a code block is skipped over because it fails the `#Ifndef identifier` check, the code below the `#Endif` directive will be included in the compile step.
+Ends the code block that starts with `#ifndef identifier`.
+If a code block is skipped over because it fails the `#ifndef identifier` check, the code below the `#endif` directive will be included in the compile step.
 
 ## Guarding Header Files
 
-By using  
+In order to prevent a file from being defined multiple times if it `#include`-ed more than once, we can put together what we've learned to write what's called a "header guard".
+Traditionally, we use the name of the file replacing a `.` with an `_`, but really the identifier set by the `#define` just has to be unique.
+For a header `filename.h`, we might do the following:
 
-`#Ifndef headername_h`
-`#Define headername_h`
+```
+#ifndef FILENAME_H
+#define FILENAME_H
 
-`... program code ...`
+... program code ...
 
-`#Endif`
+#endif
+```
 
-in your header files, you can make sure that even if a file is included more than once, it will only be added to the file a single time. You should always use a header guard for your `.h` files.
+Always make sure to guard your `.h` files.
+Even if you are sure you don't include something twice, this will ensure that any additions you make to the code will still be safe.
+That said, don't worry about writing guards for normal `.cpp` files, as they shouldn't be included anywhere!
 
+## More Preprocessor.
 
+The preprocessor also has some useful features not discussed on this page. 
+You can read more in the C++ standard, but MSDN also has [great docs](https://docs.microsoft.com/en-us/cpp/preprocessor/preprocessor-directives?view=vs-2019).
+As a sidenote, we don't use `#pragma` in this class because it's not officially in the C++ specification at the time of writing.
