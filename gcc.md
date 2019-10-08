@@ -5,12 +5,16 @@
 GCC (the GNU Compiler Collection) is used to build your C++ executables.
 It's a powerful tool and you kinda have to use it to test your programs.
 
-## Details
+## Options
 
 Here are a few of the more useful command options when using `g++`.
 These compiler flags may be used in any order you wish.
 However, by convention, we usually group the list of source files together and the list of options together.
-**NOTE:** The most important for normal use on your VM are `-Wall`, `-g`, `--std=c++11`, `-o`.
+
+### Most Common
+
+These are generally most important options for normal use on your VM and in your assignment `Makefile`s.
+You'll probably end up knowing them by heart.
 
 - `-Wall` show all warnings.
   It turns on all standard C++ warnings about code that might cause unexpected behavior.
@@ -22,6 +26,12 @@ However, by convention, we usually group the list of source files together and t
   The default filename is `a.out`.
 - `-c` compiles and assembles files but doesn't link them.
   This is useful when building large projects to separate file compilation and minimize what is re-compiled.
+  
+### Bonus Round
+
+Here are a couple compiler flags that we don't as often use in this class.
+They're still pretty handy to know.
+
 - `--sys-root=<directory>` uses `<directory>` as root directory for headers and libraries.
 - `-I /<absolute-path>` adds `<absolute-path>` to the compiler's search paths.
   As written, the path must written from the root of the filesystem, `/`.
