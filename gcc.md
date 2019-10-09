@@ -3,7 +3,7 @@
 ## Description
 
 GCC (the GNU Compiler Collection) is used to build your C++ executables.
-It's a powerful tool and you kinda have to use it to test your programs.
+It's a powerful tool and you kinda have to use it to test your programs. If you're looking for how to compile your programs before submitting, [look here](#compiling-homework)
 
 ## Options
 
@@ -26,7 +26,7 @@ You'll probably end up knowing them by heart.
   The default filename is `a.out`.
 - `-c` compiles and assembles files but doesn't link them.
   This is useful when building large projects to separate file compilation and minimize what is re-compiled.
-  
+
 ### Bonus Round
 
 Here are a couple compiler flags that we don't as often use in this class.
@@ -35,18 +35,21 @@ They're still pretty handy to know.
 - `--sys-root=<directory>` uses `<directory>` as root directory for headers and libraries.
 - `-I /<absolute-path>` adds `<absolute-path>` to the compiler's search paths.
   As written, the path must written from the root of the filesystem, `/`.
-- `-Wextra` enables some extra warnings not turned on by `-Wall`.
-  These include warnings for bad pointer to integer zero comparisons, base class not initialized in copy constructor of derived class, etc.
+- `-Werror` make all warnings into errors *do this before submitting your code to avoid getting points deducted!*
+- `-pedantic` issues all warnings demanded by strict [ISO C++](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) rules if you want to be *extra* safe
+- `-Wextra` enables some extra warnings not turned on by `-Wall`. These include warnings for bad pointer to integer zero comparisons, base class not initialized in copy constructor of derived class, etc.
 - `-Wfatal-errors` is similar to `-Wall` but treats an error as fatal and stops before  dumping a long list of errors into the terminal.
 - `-fmax-errors=n` tells the compiler to stop after encountering `n` errors in your code.
   Usually you want to see all errors in your code some error messages may get too long for you to read.
+- `-Wshadow` warns whenever a local variable or type declaration shadows another variable, parameter, class member, etc.
+- `-Wsign-conversion` warn if making unsafe, implicit conversions between signed and unsigned types (i.e. unsigned int + (constant expression) )
 - `--help` gets help on specific options for the compiler.
 
 ## Examples
 
 ```shell
-# compile single program like we will compile your homework for grading
-g++ -Wall -g --std=c++11 test.cpp -o test
+# compile a single program
+g++ -Wall -g -std=c++11 test.cpp -o test
 
 # print all possible warning flags available to compile with
 g++ --help=warnings
@@ -55,6 +58,19 @@ g++ --help=warnings
 #   include header files in ./libs directory
 #   $(pwd) will expand to your current working directory
 g++ -I /$(pwd)/libs -Wall -g -std=c++11 test.cpp -o test
+```
+
+## Compiling Homework
+
+We compile your homework with a lot of extra flags. Make sure you compile with 
+the following flags and fix the errors before submitting your homework.
+
+```shell
+# use the following warnings to compile your program
+-pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion 
+
+# example compilation
+g++ -g -std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion homework_program.cpp -o homework_program
 ```
 
 ## Additional Resources
