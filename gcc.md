@@ -42,7 +42,7 @@ They're still pretty handy to know.
 - `-fmax-errors=n` tells the compiler to stop after encountering `n` errors in your code.
   Usually you want to see all errors in your code some error messages may get too long for you to read.
 - `-Wshadow` warns whenever a local variable or type declaration shadows another variable, parameter, class member, etc.
-- `-Wsign-conversion` warn if making unsafe, implicit conversions between signed and unsigned types (i.e. unsigned int + (constant expression) )
+- `-Wsign-conversion` or `-Wconversion` warn if making unsafe, implicit conversions between signed and unsigned types (i.e. unsigned int + (constant expression) )
 - `--help` gets help on specific options for the compiler.
 
 ## Examples
@@ -70,7 +70,7 @@ the following flags and fix the errors before submitting your homework.
 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion 
 
 # example compilation
-g++ -g -std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion homework_program.cpp -o homework_program
+g++ -g -std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code homework_program.cpp -o homework_program
 ```
 
 ## Additional Resources
