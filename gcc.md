@@ -43,7 +43,47 @@ They're still pretty handy to know.
   Usually you want to see all errors in your code some error messages may get too long for you to read.
 - `-Wshadow` warns whenever a local variable or type declaration shadows another variable, parameter, class member, etc.
 - `-Wsign-conversion` or `-Wconversion` warn if making unsafe, implicit conversions between signed and unsigned types (i.e. unsigned int + (constant expression) )
+- `-O2` optimize code and check for errors in parallel to find potential bugs. ([read more about this here](#more-error-checks))
 - `--help` gets help on specific options for the compiler.
+
+### More Error Checks
+
+Sometimes you'll have a program that seems to work but will produce a
+ton of Valgrind errors. You'll get some fairly strange errors about invalid reads
+or confusing c++ library functions. Ever thought the compiler might be able to
+help solve these issues before you had to slog through pages of these debugger
+errors? Introducing the compiler flag `-O2` to the rescue! (that's an O as in
+Oreo, or Optimize) Normally, when you compile c++ programs, you'll ask for all
+warnings with the `-Wall` flag. After the compiler checks for these errors, it
+will build your program with a ton of fancy optimizations to make your code
+faster (you'll learn about these more in CS356!). The problem with this is
+sometimes you'll miss a few potential errors by not including the optimization
+step. You can use the -O2 flag to optimize and error check at the same time.
+
+For example, a student's code seem to be perfectly normal when compiling with
+the normal flags.
+
+```shell
+
+# before, compiled without errors
+g++  -Wall -std=c++11 main.cpp -o main
+
+# after, we get more helpful warnings about potential bugs
+g++ -O2 -Wall -std=c++11 main.cpp -o main
+
+In file included from main.cpp:9:
+avl/avlbst.h: In member function
+'void AVLTree<Key, Value>::balance(AVLNode<Key, Value>*&)
+[with Key = std::__cxx11::basic_string<char>; Value = int]':
+avl/avlbst.h:106:54: error: 'y' may be used uninitialized in this function
+[-Werror=maybe-uninitialized]
+  return static_cast<AVLNode<Key,Value>*>(this->mRight);
+                                                      ^
+avl/avlbst.h:199:23: note: 'y' was declared here
+  AVLNode<Key, Value>* y;
+```
+
+[Reference about the -O2 flag](https://www.linuxtopia.org/online_books/an_introduction_to_gcc/gccintro_52.html)
 
 ## Examples
 
@@ -58,6 +98,12 @@ g++ --help=warnings
 #   include header files in ./libs directory
 #   $(pwd) will expand to your current working directory
 g++ -I /$(pwd)/libs -Wall -g -std=c++11 test.cpp -o test
+
+
+# compile and optimize in parallel for helpful warnings about potential bugs
+g++ -O2 -Wall -std=c++11 main.cpp -o main
+
+
 ```
 
 ## Compiling Homework
