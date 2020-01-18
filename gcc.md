@@ -113,7 +113,7 @@ the following flags and fix the errors before submitting your homework.
 
 ```shell
 # use the following warnings to compile your program
--pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion 
+-std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion -g
 
 # example compilation
 g++ -g -std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code homework_program.cpp -o homework_program
