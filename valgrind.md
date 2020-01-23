@@ -137,8 +137,11 @@ int * a = new int;
 delete a;           // note delete [] a; would also work
 
 int ** A = new int[10];
-delete [] A;        
+delete [] A;
 
+// the code below, would cause a mismatched free/delete error
+int ** B = new int[10];
+delete B;
 ```
 
 
