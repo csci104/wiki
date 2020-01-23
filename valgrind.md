@@ -112,6 +112,36 @@ delete [] matrix;
 matrix[1] = 2;
 ```
 
+### Mismatched free/delete
+
+```txt
+==91== Mismatched free() / delete / delete []
+==91==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    by 0x109C94: StarWars::operator=(StarWars const&) (starwars.cpp:183)
+==91==    by 0x10A6F1: StarWars::execute() (starwars.cpp:365)
+==91==    by 0x10A577: StarWars::order66() (starwars.cpp:334)
+==91==    by 0x10B9A2: main (test-your-faith.cpp:33)
+```
+
+This is caused by incorrectly deleting a pointer to an array. If you're deleting a
+single object (i.e. `int *`), you can deallocate memory with `delete`.
+
+However, if you're deleting an array object (i.e. `int **`), you need to use `delete []`. This
+also applies for higher level pointers (i.e. `int ***`, `int ****`).
+
+Here's an example:
+
+```cpp
+
+int * a = new int;
+delete a;           // note delete [] a; would also work
+
+int ** A = new int[10];
+delete [] A;        
+
+```
+
+
 ## Heap and Leak Summary
 
 The `MemCheck` tool in Valgrind runs by default, so you don't have to specify `--tool=memcheck` when running Valgrind.
