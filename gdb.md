@@ -27,7 +27,11 @@ These will be shown by the slash. I.e. `run/r` means you can use either `run` or
 - `clear [function name]` removes the breakpoint on the given function.
   Note: function breakpoints will not work on functions that take strings as arguments (it's complicated) on your course VM due to an incompatibility between GCC and GDB.
   However, this will work properly on newer systems.
+- `layout next` From the begining of GDB, entering 'layout next' once the program is running will show you source code around your current location in the program. 
+  This view can be helpful to those who are new to gdb, and especially helpful when working with source code you are not farmiliar with. 
+  Repeating 'layout next' shows your program in assembly language.
 - `bt` shows the function call stack, every function that you've run through since the line you've arrived at.
+- `layout prev` Takes you back to the previous layout mode. 
 - `frame [number]` goes to the selected frame in the call stack.
 - `continue/c` continues the program after being stopped by a breakpoint.
 - `print/p [variable]` prints out the variable value.
