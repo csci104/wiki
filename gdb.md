@@ -30,8 +30,8 @@ These will be shown by the slash. I.e. `run/r` means you can use either `run` or
 - `layout next` From the begining of GDB, entering 'layout next' once the program is running will show you source code around your current location in the program. 
   This view can be helpful to those who are new to gdb, and especially helpful when working with source code you are not farmiliar with. 
   Repeating 'layout next' shows your program in assembly language.
-- `bt` shows the function call stack, every function that you've run through since the line you've arrived at.
 - `layout prev` Takes you back to the previous layout mode. 
+- `bt` shows the function call stack, every function that you've run through since the line you've arrived at.
 - `frame [number]` goes to the selected frame in the call stack.
 - `continue/c` continues the program after being stopped by a breakpoint.
 - `print/p [variable]` prints out the variable value.
