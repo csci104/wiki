@@ -28,7 +28,7 @@ Type these commands directly into your terminal.
 - `ls` lists all the files and directories.
     If you specify a directory in your current directory, `ls <directory_name>` will list the contents of that directory.
     So, if you are in the `hw-username` directory, but you want to see what files you have in your `hw1` directory,
-    simply type `ls h1`.
+    simply type `ls hw1`.
 
 ### Creating a Directory
 
@@ -36,9 +36,9 @@ Type these commands directly into your terminal.
 
 ### Moving Files Around
 
-- `cp <src_file_name> <dest_directory_name` or `cp <src_directory_name> <dest_directory_name>` will COPY the contents of the
+- `cp <src_file_name> <dest_directory_name>` or `cp <src_directory_name> <dest_directory_name>` will COPY the contents of the
     src to the dest (leaving the orignial unchanged).
-- `mv <src_file_name> <dest_directory_name` or `mv <src_directory_name> <dest_directory_name>` will MOVE the contents of the 
+- `mv <src_file_name> <dest_directory_name>` or `mv <src_directory_name> <dest_directory_name>` will MOVE the contents of the 
     src to the dest (the original is no longer at the src).  This can also be used to rename files.
 
 ### Opening a Text Editor
@@ -46,5 +46,6 @@ Type these commands directly into your terminal.
 - `subl` opens a blank sublime document.
 - `subl <file_name>` opens only that file.
 - `subl <directory_name>` opens all the files in the directory and is SUPER CONVENIENT!
+
 NOTE: if you are using VS Code, just replace `subl` with `code`.  For Emacs, replace with `emacs`.
 
