@@ -67,7 +67,7 @@ This is most commonly used to:
 2. Only run our target when that dependency has changed to avoid doing extra work.
 
 Most of your homeworks will require you to compile multiple files, then link them all at once.
-To do this, we will use an `all` target and the `-c` compiler flag, which compiles without linking.
+To do this, we'll use the `-c` compiler flag, which compiles without linking.
 Note that all the files we compile with `-c` have target names that correspond to the object files we're expecting out.
 
 First, take a look at the imaginary file tree we're basing this Makefile off of:
@@ -98,7 +98,12 @@ clean:
 	rm -f *.o program
 ```
 
-You might notice that we added a dependency on `file1.h` to the `file1.o` target.
-This makes sure that if `file1.h` changes, `file1.o` will be recompiled.
-You also might notice that our clean deletes `*.o`. 
-This is simply shorthand for deleting all files that end with `.o`, and is a more convenient way to clean up the objects we created while compiling `program`.
+There are a couple things to note here:
+
+1. We added a dependency on `file1.h` to the `file1.o` target.
+   This makes sure that if `file1.h` changes, `file1.o` will be recompiled.
+2. Our `clean` target deletes `*.o`. 
+   This is simply shorthand for deleting all files that end with `.o`, and is a more convenient way to clean up the objects we created while compiling `program`.
+3. The first target is `all`.
+   This is simply what the central or default task of a Makefile is customarily called; there's no rule that requires you to do this.
+   However, having a separate task in charge of orchestrating the overall compilation process can keep your Makefiles tidy.
