@@ -16,10 +16,11 @@ You are required to write them for your homework.
 - Make will then look for the corresponding target in the makefile.
   If you don't provide a target, Make will just run the first target it finds.
 - If the target is found, the target's dependencies will be run as needed, then the target commands will be run. 
-- Typically these commands look something like `g++ ...`, but they don't have to be!
+- Oftentimes these commands start with `g++`, but they can be anything!
   You can run any command this way.
-- The target dependency format looks like this. 
-  **Note the tab indent before the commands; these are required!**
+  
+The target dependency format looks like this. 
+**Note the tab indent before the commands; these are required!**
   
 ```
 target1: dependency1 dependency2 ...
@@ -28,9 +29,9 @@ target1: dependency1 dependency2 ...
 	...
 ```
 
-- The target of a Makefile can be named anything.
-- Dependencies can either be other targets or file names; if a target depends on another target, it guarantees that target will be run prior, and if a target depends on a file, it will check to see if that file has changed to avoid executing redundantly.
-- Commands can be anything you could run on your command line.
+**Targets** in a Makefile can be named anything (though as you'll see, certain names can incur certain behavior).
+**Dependencies** can either be other targets or file names; if a target depends on another target, it guarantees that target will be run prior, and if a target depends on a file, it will check to see if that file has changed to avoid executing redundantly.
+Finally, **commands** can be anything you could run on your command line.
 
 ## Simple Example
 
