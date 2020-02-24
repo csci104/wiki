@@ -57,12 +57,28 @@ delete [] matrix;
 
 ### Conditional jump or move depends on uninitialized value(s)
 
-This error is caused if you forget to initialize variables before using or accessing them.
+This error is caused if you forget to initialize variables before using or accessing them. 
+You can usually re-run valgrind
+with the flag `--track-origins=yes` to see where the uninitialized value came from. 
+
 Error example:
 
 ```txt
 Conditional jump or move depends on uninitialised value(s)
    at 0x1091D1: main (valgrind-test.cpp:9)
+```
+
+Example running with `--track-origins=yes` shows the line where you might want to make sure you're initializing 
+values or setting to `nullptr` where appropriate.
+
+```txt
+==5214== Conditional jump or move depends on uninitialised value(s)
+==5214==    at 0x401968: ListTest::~ListTest() (listtest.cpp:20)
+==5214==    by 0x401728: main (in /home/test)
+==5214==  Uninitialised value was created by a heap allocation <=== PAY ATTENTION TO THESE NOTES
+==5214==    at 0x4C2E89F: operator new[](unsigned long)
+==5214==    by 0x4018EF: ListTest::ListTest() (listtest.cpp:8)
+==5214==    by 0x40126D: main (in /home/test)
 ```
 
 All the examples below would have caused this error:
@@ -84,6 +100,8 @@ while (i < 104) { // error
   printf("I'm still working on fixing Valgrind errors!\n");
 }
 ```
+
+
 
 ### Invalid read/write of size X
 
@@ -116,7 +134,7 @@ matrix[1] = 2;
 
 ```txt
 ==91== Mismatched free() / delete / delete []
-==91==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==91==    at 0x4C3123B: operator delete(void*) 
 ==91==    by 0x109C94: StarWars::operator=(StarWars const&) (starwars.cpp:183)
 ==91==    by 0x10A6F1: StarWars::execute() (starwars.cpp:365)
 ==91==    by 0x10A577: StarWars::order66() (starwars.cpp:334)
@@ -172,7 +190,9 @@ Here is what the two most important parts of the summary mean:
 
 - **definitely lost**: your program is leaking memory and you need to fix it!
 - **indirectly lost**: your program may have crashed and couldn't clean up memory.
+- **suppressed**: you can safely ignore this area since this memory was not managed by your program
 - possibly lost: your program is leaking memory unless you're doing odd things with pointers.
+
 
 **Extension**: suppressed memory is memory still allocated when Valgrind exits that we tell Valgrind to ignore via a configuration file in your virtual machine.
 This memory is usually being used by either the system's dynamic library loader or parts of the standard library that use custom allocators and deallocators.
@@ -180,4 +200,5 @@ This memory is usually being used by either the system's dynamic library loader 
 ## Additional Resources
 
 You can read more about Valgrind error messages in [the docs](http://valgrind.org/docs/manual/mc-manual.html#mc-manual.errormsgs).
+
 Move information on Valgrind can be found [on their website](http://valgrind.org) if you're interested.
