@@ -7,7 +7,7 @@ If you're having issues installing `clang-format` natively, you can always use o
 **Adhering to our style guidelines will greatly benefit you**.
 Maintaining clean and readable code will help us debug and give feedback on your programs faster.
 It also enable us to give you more points back while doing code review.
-You can automatically format your code from the command line using `clang-format`, which we've included instructions for [below](#clangformat).
+You can automatically format your code from the command line using `clang-format`, which we've included instructions for [below](#clang-format).
 
 ## Style Guide
 
