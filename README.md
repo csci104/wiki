@@ -11,3 +11,4 @@ Pages in this wiki:
 - [The Preprocessor](./preprocessor.md) by Anthony Wiencko
 - [Valgrind](./valgrind.md) by Cameron Durham
 - [Makefile](./makefile.md) by Leif Wesche 
+- [Code style](./style.md) by Noah Kim
