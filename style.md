@@ -101,7 +101,8 @@ However, you should avoid using nondescriptive variable names if they serve nont
 ## Clang Format
 
 `clang-format` is a utility built on top of the `clang` tooling that, among other things, visually restructures code based on a set of style guidelines.
-**`clang-format` does not change what your code does or how it works**, instead managing things like spaces, newlines, brackets, and indentation.
+**`clang-format` does not change what your code does or how it works**.
+Instead, it manages things like spacing, newlines, brackets, and indentation.
 
 You can invoke `clang-format` from the command line, and it comes installed out of the box on our [Docker container](https://github.com/csci104/docker).
 We have already provided you with a set of rules, so running the utility within your homework repository is as easy as:
