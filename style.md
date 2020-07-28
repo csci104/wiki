@@ -1,13 +1,13 @@
 # Code Style
 
-The canonical 104 code style is mostly summed up by our `clang-format` [configuration file](https://github.com/csci104/hw/blob/master/.clang-format). 
+The complete 104 code-style is defined by our `clang-format` [configuration file](https://github.com/csci104/hw/blob/master/.clang-format). 
 If you'd like to experiment with it to get a feel for the rules, try setting up `clang-format`, writing some code how you would normally, and formatting it to see what changes.
 If you're having issues installing `clang-format` natively, you can always use our [Docker image](https://github.com/csci104/docker) which provides it out of the box.
 
-Please note that **adhering our style guidelines will greatly benefit you**.
+**Adhering to our style guidelines will greatly benefit you**.
 Maintaining clean and readable code will help us debug and give feedback on your programs faster.
 It also enable us to give you more points back while doing code review.
-Plus, using `clang-format`, which we've already set you up with and included [instructions for below](#tooling), you can automatically format your code from the command line.
+You can automatically format your code from the command line using `clang-format`, which we've included instructions for [below](#clangformat).
 
 ## Style Guide
 
@@ -98,7 +98,7 @@ While not syntactical style per se, naming is still super important to readabili
 In general, using short variables such as `n`, `i`, `j`, and `it` for iterators and short functions is fine.
 However, you should avoid using nondescriptive variable names if they serve nontrivial uses.
 
-## Tooling
+## Clang Format
 
 `clang-format` is a utility built on top of the `clang` tooling that, among other things, visually restructures code based on a set of style guidelines.
 **`clang-format` does not change what your code does or how it works**, instead managing things like spaces, newlines, brackets, and indentation.
@@ -128,7 +128,5 @@ This is necessary when you also want to format files in subdirectories.
 $ clang-format -i directory/**/*.{h,cpp}
 ```
 
-Please make sure you **format your code before submitting**. 
+To reiterate, please make sure you **format your code before submitting**. 
 This ensures that graders can easily read and give you points for your work.
-It will also prevent you from losing points for formatting in code review. 
-
