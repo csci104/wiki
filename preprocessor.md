@@ -118,11 +118,11 @@ In order to prevent a file from being defined multiple times if it `#include`-ed
 Traditionally, we use the name of the file replacing a `.` with an `_`, but really the identifier set by the `#define` just has to be unique.
 For a header `filename.h`, we might do the following:
 
-```
+```c++
 #ifndef FILENAME_H
 #define FILENAME_H
 
-... program code ...
+// ... program code ...
 
 #endif
 ```

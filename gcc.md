@@ -99,11 +99,8 @@ g++ --help=warnings
 #   $(pwd) will expand to your current working directory
 g++ -I /$(pwd)/libs -Wall -g -std=c++11 test.cpp -o test
 
-
 # compile and optimize in parallel for helpful warnings about potential bugs
 g++ -O2 -Wall -std=c++11 main.cpp -o main
-
-
 ```
 
 ## Compiling Homework
