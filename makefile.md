@@ -8,8 +8,6 @@ tasks: false
 
 By Leif Wesche
 
-## Why use a Makefile?
-
 Makefiles are tools that help us compile and maintain code locally.
 Make is a program that comes with the GNU compiler.
 Makefiles will save you lots of time typing and clicking. 
@@ -113,3 +111,61 @@ There are a couple things to note here:
 3. The first target is `all`.
    This is simply what the central or default task of a Makefile is customarily called; there's no rule that requires you to do this.
    However, having a separate task in charge of orchestrating the overall compilation process can keep your Makefiles tidy.
+
+## Using Variables
+
+When you start to write more complicated Makefiles, you'll find yourself frequently repeating commands and arguments.
+In order to alleviate this, Makefile offers variables.
+Here's an example Makefile where we've abstracted most of the `g++` calls into variables.
+
+```makefile
+COMPILER=g++
+OPTIONS=-g -std=c++17 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code
+COMPILE=$(COMPILER) $(OPTIONS)
+
+program: main.cpp
+	$(COMPILE) main.cpp -o program
+```
+
+## Build Folder
+
+Another way to keep your build process organized is to use a subdirectory for build artifacts.
+This allows you to keep all of the compiled objects out of the way of the files you're trying to edit.
+It also improves the ergonomics of `clean`; all you have to do is delete the directory you have all your objects in.
+
+## Cheat Sheet
+
+The following is a Makefile template that uses all of the strategies we've discussed above.
+Feel free to use it for your projects, just make sure to modify it to fit our assignment specifications.
+
+```makefile
+COMPILER=g++
+OPTIONS=-g -std=c++17 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code
+COMPILE=$(COMPILER) $(OPTIONS)
+BUILD=build
+
+# Run by default
+all: program
+
+# $@ corresponds to the target name, i.e. `program` here
+# $< corresponds to the first dependency, i.e. `main.cpp`
+# For reference, $^ corresponds to the complete list of dependencies
+
+program: main.cpp $(BUILD)/file1.o $(BUILD)/file2.o
+	$(COMPILE) $< $(BUILD)/*.o -o $@
+
+$(BUILD)/file1.o: file1.cpp file1.h build
+	$(COMPILE) -c $< -o $@
+
+$(BUILD)/file2.o: file2.cpp build
+	$(COMPILE) -c $< -o $@
+
+build:
+	mkdir -p $(BUILD)
+
+clean:
+	rm -rf $(BUILD) program
+
+# These rules are not linked to a specific file
+.PHONY: build clean
+```

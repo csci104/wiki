@@ -6,10 +6,10 @@ tasks: false
 
 # G++ Cheatsheet
 
-## Description
-
-GCC (the GNU Compiler Collection) is used to build your C++ executables.
-It's a powerful tool and you kinda have to use it to test your programs. If you're looking for how to compile your programs before submitting, [look here](#compiling-homework)
+GCC, the GNU Compiler Collection, is used to build your C++ executables.
+If you're interested in reading about GCC, you can check out the [GNU website](http://gcc.gnu.org/).
+You can also take ITP 439, which covers compiler development.
+If you're looking for how to compile your programs before submitting, check the [compiling homework](#cheat-sheet) section below.
 
 ## Options
 
@@ -23,11 +23,12 @@ These are generally most important options for normal use on your VM and in your
 You'll probably end up knowing them by heart.
 
 - `-Wall` show all warnings.
-  It turns on all standard C++ warnings about code that might cause unexpected behavior.
+  It turns on all standard C++ warnings about code that might cause unexpected or undefined behavior.
 - `-g` provides debugging feature for your program.
   You will need this when you want to use gdb or valgrind.
 - `--std=c++<##>` uses version `<##>` of C++ when compiling.
   This will allow you to use specific features of that C++ version.
+  Typically, we have you use `--std=c++17`.
 - `-o <filename>` compiles and links files into an executable named `<filename>`.
   The default filename is `a.out`.
 - `-c` compiles and assembles files but doesn't link them.
@@ -37,10 +38,11 @@ You'll probably end up knowing them by heart.
 
 Here are a couple compiler flags that we don't as often use in this class.
 They're still pretty handy to know.
+You can read about all the options for using `g++` [here](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html).
 
 - `--sys-root=<directory>` uses `<directory>` as root directory for headers and libraries.
 - `-I /<absolute-path>` adds `<absolute-path>` to the compiler's search paths.
-  As written, the path must written from the root of the filesystem, `/`.
+  The path must written from the root of the filesystem, `/`.
 - `-Werror` make all warnings into errors *do this before submitting your code to avoid getting points deducted!*
 - `-pedantic` issues all warnings demanded by strict [ISO C++](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) rules if you want to be *extra* safe
 - `-Wextra` enables some extra warnings not turned on by `-Wall`. These include warnings for bad pointer to integer zero comparisons, base class not initialized in copy constructor of derived class, etc.
@@ -54,73 +56,62 @@ They're still pretty handy to know.
 
 ### More Error Checks
 
-Sometimes you'll have a program that seems to work but will produce a
-ton of Valgrind errors. You'll get some fairly strange errors about invalid reads
-or confusing c++ library functions. Ever thought the compiler might be able to
-help solve these issues before you had to slog through pages of these debugger
-errors? Introducing the compiler flag `-O2` to the rescue! (that's an O as in
-Oreo, or Optimize) Normally, when you compile c++ programs, you'll ask for all
-warnings with the `-Wall` flag. After the compiler checks for these errors, it
-will build your program with a ton of fancy optimizations to make your code
-faster (you'll learn about these more in CS356!). The problem with this is
-sometimes you'll miss a few potential errors by not including the optimization
-step. You can use the -O2 flag to optimize and error check at the same time.
+Sometimes you'll have a program that seems to work but will produce a ton of Valgrind errors.
+You'll get some fairly strange errors about invalid reads or confusing c++ library functions.
+Ever thought the compiler might be able to help solve these issues before you had to slog through pages of these debugger errors?
+ 
+Introducing the compiler flag `-O2` (that's an O as in Oreo, or Optimize) to the rescue! 
+Normally, when you compile c++ programs, you'll ask for all warnings with the `-Wall` flag. 
+After the compiler checks for these errors, it will build your program with a ton of fancy optimizations to make your code faster (you'll learn about these more in CSCI 356).
+The problem with this is sometimes you'll miss a few potential errors by not including the optimization step.
+You can use the `-O2` flag to optimize and error check at the same time.
 
 For example, a student's code seem to be perfectly normal when compiling with
 the normal flags.
 
 ```shell
-# before, compiled without errors
-g++  -Wall -std=c++11 main.cpp -o main
+# Before, compiled without errors
+$ g++  -Wall -std=c++17 main.cpp -o main
 
-# after, we get more helpful warnings about potential bugs
-g++ -O2 -Wall -std=c++11 main.cpp -o main
+# After, we get more helpful warnings about potential bugs
+$ g++ -O2 -Wall -std=c++17 main.cpp -o main
 
 In file included from main.cpp:9:
-avl/avlbst.h: In member function
-'void AVLTree<Key, Value>::balance(AVLNode<Key, Value>*&)
-[with Key = std::__cxx11::basic_string<char>; Value = int]':
-avl/avlbst.h:106:54: error: 'y' may be used uninitialized in this function
-[-Werror=maybe-uninitialized]
+avl/avlbst.h: In member function 'void AVLTree<Key, Value>::balance(AVLNode<Key, Value>*&) [with Key = std::__cxx11::basic_string<char>; Value = int]':
+avl/avlbst.h:106:54: error: 'y' may be used uninitialized in this function [-Werror=maybe-uninitialized]
   return static_cast<AVLNode<Key,Value>*>(this->mRight);
                                                       ^
 avl/avlbst.h:199:23: note: 'y' was declared here
   AVLNode<Key, Value>* y;
 ```
 
-[Reference about the -O2 flag](https://www.linuxtopia.org/online_books/an_introduction_to_gcc/gccintro_52.html)
+You can read more about `-O2` [online](https://www.linuxtopia.org/online_books/an_introduction_to_gcc/gccintro_52.html).
 
-## Examples
+## Cheat Sheet
 
 ```shell
-# compile a single program
-g++ -Wall -g -std=c++11 test.cpp -o test
+# Compile a single program
+g++ -Wall -g -std=c++17 test.cpp -o test
 
-# print all possible warning flags available to compile with
+# Print all possible warning flags available to compile with
 g++ --help=warnings
 
-# compile program using header files in another directory
-#   include header files in ./libs directory
-#   $(pwd) will expand to your current working directory
-g++ -I /$(pwd)/libs -Wall -g -std=c++11 test.cpp -o test
+# Compile program using header files in ./libs
+# $(pwd) will expand to your current working directory
+g++ -I /$(pwd)/libs -Wall -g -std=c++17 test.cpp -o test
 
-# compile and optimize in parallel for helpful warnings about potential bugs
-g++ -O2 -Wall -std=c++11 main.cpp -o main
+# Compile and optimize in parallel for helpful warnings about potential bugs
+g++ -O2 -Wall -std=c++17 main.cpp -o main
 ```
 
-## Compiling Homework
-
-We compile your homework with a lot of extra flags. Make sure you compile with 
-the following flags and fix the errors before submitting your homework.
+We compile your homework with a lot of extra flags.
+Make sure you compile with the following flags and fix the errors before submitting your homework.
+If you want to use a Makefile instead of writing out these flags every time, check out our guide on [Makefiles](/wiki/makefile).
 
 ```shell
 # use the following warnings to compile your program
--std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion -g
+-std=c++17 -pedantic -Wall -Wextra -Werror -Wshadow -Wsign-conversion -g
 
 # example compilation
-g++ -g -std=c++11 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code homework_program.cpp -o homework_program
+g++ -g -std=c++17 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wunreachable-code homework_program.cpp -o homework_program
 ```
-
-## Additional Resources
-
-You can read about all the options for using `g++` [here](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html).
