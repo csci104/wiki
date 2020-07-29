@@ -28,7 +28,7 @@ You are required to write them for your homework.
 The target dependency format looks like this. 
 **Note the tab indent before the commands; these are required!**
   
-```
+```makefile
 target1: dependency1 dependency2 ...
 	command1
 	command2
@@ -44,7 +44,7 @@ Finally, **commands** can be anything you could run on your command line.
 This simple Makefile compiles a `hello.cpp` program.
 It also includes a `clean` target that removes our executable in case we want to clean up the directory.
 
-```
+```makefile
 hello: hello.cpp
 	g++ -g -Wall hello.cpp -o hello
 
@@ -54,14 +54,14 @@ clean:
 
 If we're in the same directory as our Makefile, we can run the following to compile `hello.cpp`:
 
-```
-$ make  # or make hello
+```shell
+make  # or make hello
 ```
 
 And we can run the following to delete the file we just generated during compilation:
 
-```
-$ make clean
+```shell
+make clean
 ```
 
 ## Multi-file Example
@@ -88,7 +88,7 @@ program/
 
 And now, the Makefile:
 
-```
+```makefile
 all: program
 
 program: main.cpp file1.o file2.o
