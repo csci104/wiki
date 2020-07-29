@@ -60,7 +60,7 @@ if (this->sides < 3) {
 if(this->sides) throw invalid_argument("too few sides!");
 ```
 
-The exception to this rule is functions; single-line functions are still acceptable if they are sufficiently clear and concise.
+The exception to this rule is functions; **single-line functions are still acceptable if they are sufficiently clear and concise**.
 For example, the following is still allowed:
 
 ```c++
@@ -70,7 +70,7 @@ bool is_odd(int n) { return n % 2 == 1; }
 
 It's worth mentioning that we accept both same-line and K&R open brace positioning, but you'll have to modify the corresponding `.clang-format` options to enable the latter.
 If you want to do so, there are comments in the `.clang-format` file explaining what to change.
-Regardless of what you choose, we expect that you use it uniformly in all of your code.
+Regardless of what you choose, we expect that you **use it uniformly in all of your code**.
 
 ```c++
 // Good
@@ -97,8 +97,8 @@ We ask that you adhere to the following rules:
   Whichever you choose, use it solely and consistently throughout your code.
 
 In general, using short variables such as `n`, `i`, `j`, and `it` for iterators and short functions is fine.
-However, you should avoid using such variable names if they serve complex uses.
-A good rule of thumb here is that variable names should be self-documenting; you should be able to glance at them and immediately infer what they are being used for.
+However, you should **avoid using super short variable names if they serve complex uses**.
+Names should be self-documenting; **you should be able to glance at variable and immediately infer what it's being used for**.
 
 ## Clang Format
 
