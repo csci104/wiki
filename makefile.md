@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: asides
+toc: true
+tasks: false
 ---
 
 # Makefile Cheat Sheet

@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: asides
+toc: true
+tasks: false
 ---
 
 # GDB Cheat Sheet

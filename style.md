@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: asides
+toc: true
+tasks: false
 ---
 
 # Code Style
@@ -113,13 +115,13 @@ We have already put a `.clang-format` file in your homework repository, so any f
 You can invoke `clang-format` from the command line, and it comes installed out of the box on our [Docker container](https://github.com/csci104/docker).
 Running the utility within your homework repository is as easy as:
 
-```shell script
+```shell
 clang-format -i directory/file.cpp
 ``` 
 
 If you want to format multiple files in a directory, you can use wildcard operators:
 
-```shell script
+```shell
 # Format all .cpp files in directory/
 clang-format -i directory/*.cpp
 
@@ -130,7 +132,7 @@ clang-format -i directory/*.{h,cpp}
 Lastly, you can use the double asterisk to recursively glob.
 This is necessary when you also want to format files in subdirectories.
 
-```shell script
+```shell
 # Format all .cpp and .h files in directory/ and subdirectories
 clang-format -i directory/**/*.{h,cpp}
 ```

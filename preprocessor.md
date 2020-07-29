@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: asides
+toc: true
+tasks: false
 ---
 
 # Preprocessor Cheat Sheet
