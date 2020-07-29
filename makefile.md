@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Makefile Cheat Sheet
 
 By Leif Wesche

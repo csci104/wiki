@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # GDB Cheat Sheet
 
 By Spencer Davis

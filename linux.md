@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Linux Cheatsheet
 
 By Jamie Flores

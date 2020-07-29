@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Valgrind Cheat Sheet
 
 By Cameron Durham

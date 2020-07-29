@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Code Style
 
 The complete 104 code-style is defined by our `clang-format` [configuration file](https://github.com/csci104/hw/blob/master/.clang-format). 

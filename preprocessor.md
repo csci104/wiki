@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Preprocessor Cheat Sheet
 
 By Anthony Wiencko

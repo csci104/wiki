@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # G++ Cheatsheet
 
 ## Description
@@ -64,7 +68,6 @@ For example, a student's code seem to be perfectly normal when compiling with
 the normal flags.
 
 ```shell
-
 # before, compiled without errors
 g++  -Wall -std=c++11 main.cpp -o main
 
