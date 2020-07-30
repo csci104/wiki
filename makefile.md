@@ -133,6 +133,42 @@ Another way to keep your build process organized is to use a subdirectory for bu
 This allows you to keep all of the compiled objects out of the way of the files you're trying to edit.
 It also improves the ergonomics of `clean`; all you have to do is delete the directory you have all your objects in.
 
+Note that because we still want Make to check file creation and edit times correctly, we also have to change target names.
+Using a build directory might make your `Makefile` look something like this:
+
+```makefile
+BUILD=build
+
+$(BUILD)/file2.o: file2.cpp
+	g++ -g -Wall -c file2.cpp -o $(BUILD)/file2.o
+
+build:
+	mkdir -p $(BUILD)
+```
+
+## Special Symbols
+
+There are a bunch of fancy things you can do with Make using wildcard and expanded symbols.
+Given the following snippet, here are a couple that might come in handy.
+
+```makefile
+target1: dependency1 dependency2
+	command1
+	command2
+```
+
+- `$@` expands to the target name, i.e. `target1`
+- `$<` expands to the first dependency, i.e. `dependency1`
+- `$^` expands to the complete list of dependencies, i.e. `dependency1 dependency2`
+
+You can use the wildcard operator, `%`, to apply a rule to multiple files.
+For example, the following rule compiles all `.cpp` files in the directory to correspondingly named `.o` files:
+
+```makefile
+%.o: %.cpp
+	g++ -Wall -c $< -o $@ 
+```
+
 ## Cheat Sheet
 
 The following is a Makefile template that uses all of the strategies we've discussed above.
@@ -144,13 +180,11 @@ OPTIONS=-g -std=c++17 -pedantic -Wall -Wextra -Werror -Wshadow -Wconversion -Wun
 COMPILE=$(COMPILER) $(OPTIONS)
 BUILD=build
 
-# Run by default
+# Compile main by default
 all: program
 
-# $@ corresponds to the target name, i.e. `program` here
-# $< corresponds to the first dependency, i.e. `main.cpp`
-# For reference, $^ corresponds to the complete list of dependencies
-
+# $(BUILD)/*.o expands to all .o files in the $(BUILD) directory
+# In this case, we'll get $(BUILD)/file1.o $(BUILD)/file2.o
 program: main.cpp $(BUILD)/file1.o $(BUILD)/file2.o
 	$(COMPILE) $< $(BUILD)/*.o -o $@
 
@@ -160,12 +194,14 @@ $(BUILD)/file1.o: file1.cpp file1.h build
 $(BUILD)/file2.o: file2.cpp build
 	$(COMPILE) -c $< -o $@
 
+# Make the build directory if it doesn't exist
 build:
 	mkdir -p $(BUILD)
 
+# Delete the build directory and program
 clean:
 	rm -rf $(BUILD) program
 
-# These rules are not linked to a specific file
+# These rules do not correspond to a specific file
 .PHONY: build clean
 ```
