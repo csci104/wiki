@@ -119,7 +119,7 @@ Running the utility within your homework repository is as easy as:
 clang-format -i directory/file.cpp
 ``` 
 
-If you want to format multiple files in a directory, you can use wildcard operators:
+If you want to format multiple files in a directory, you can use wildcard operators (note that you have to replace `directory` with the name of the directory):
 
 ```shell
 # Format all .cpp files in directory/
@@ -136,3 +136,20 @@ This is necessary when you also want to format files in subdirectories.
 # Format all .cpp and .h files in directory/ and subdirectories
 clang-format -i directory/**/*.{h,cpp}
 ```
+
+### Updating Clang-Format on the VM
+Unfortunately, the version of clang-format available on Ubuntu 16 is too old to process the clang-format file we've given you, so it needs to be updated.  Here's how to do this.  If you're using Docker, skip this step!
+
+First, you need to enable the `ubuntu-updates` repository.  Don't worry, this won't actually install any updated software on your machine unless you tell it to.  Click the gear menu in the top right of the VM, then select System Settings.  In the settings window, click Software and Updates.
+
+Now, as in the screenshot below, click the Updates tab at the top, and check Recommended updates.
+![Checking recommended updates](https://cdn.discordapp.com/attachments/742495470806368358/757443364273651833/unknown.png)
+
+Type in your password when asked, click close, and say yes to reload the software lists.
+
+Now, finally, you can install clang-format:
+```
+sudo apt-get install clang-format-8
+```
+
+This will install clang-format version 8.  Use the `clang-format-8` command instead of `clang-format` in all the clang-format commands above.
