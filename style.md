@@ -140,7 +140,7 @@ clang-format -i directory/**/*.{h,cpp}
 ### Updating Clang-Format on the VM
 Unfortunately, the version of clang-format available on Ubuntu 16 is too old to process the clang-format file we've given you, so it needs to be updated.  Here's how to do this.  If you're using Docker, skip this step!
 
-First, you need to enable the `ubuntu-updates` repository.  Don't worry, this won't actually install any updated software on your machine unless you tell it to.  Click the gear menu in the top right of the VM, then select System Settings.  In the settings window, click Software and Updates.
+First, you need to enable the `xenial-updates` repository.  Don't worry, this won't actually install any updated software on your machine unless you tell it to.  Click the gear menu in the top right of the VM, then select System Settings.  In the settings window, click Software and Updates.
 
 Now, as in the screenshot below, click the Updates tab at the top, and check Recommended updates.
 ![Checking recommended updates](https://cdn.discordapp.com/attachments/742495470806368358/757443364273651833/unknown.png)
